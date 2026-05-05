@@ -1,6 +1,6 @@
 #!/bin/bash
 # ---------------------------------------------------------------
-# OpenFOAM run script for AMR pipeline — NORMAL mesh
+# OpenFOAM run script for AMR pipeline — AMR mesh
 # Reads ALL config from amr_pipeline.input — no editing needed.
 # ---------------------------------------------------------------
 set -eo pipefail
@@ -26,12 +26,12 @@ SOLVER=$(parse_conf solver "$INPUT_FILE" "rhoCentralFoam")
 CASE_DIR_REL=$(parse_conf case_dir "$INPUT_FILE" "openfoam_case")
 BOUNDARY_FIX=$(parse_conf boundary_fix "$INPUT_FILE" "")
 FOAM_SIGFPE_VAL=$(parse_conf foam_sigfpe "$INPUT_FILE" "false")
-MESH_NAME=$(parse_conf sim_mesh "$INPUT_FILE" "")
+MESH_NAME=$(parse_conf sim_mesh_amr "$INPUT_FILE" "")
 
 CASE_DIR="${SCRIPT_DIR}/${CASE_DIR_REL}"
 
 if [ -z "$MESH_NAME" ]; then
-    echo "ERROR: sim_mesh not set in $INPUT_FILE" >&2; exit 1
+    echo "ERROR: sim_mesh_amr not set in $INPUT_FILE" >&2; exit 1
 fi
 if [ -f "${SCRIPT_DIR}/${MESH_NAME}" ]; then
     MESH_FILE="${SCRIPT_DIR}/${MESH_NAME}"
@@ -48,7 +48,7 @@ fi
 [ "$FOAM_SIGFPE_VAL" = "true" ] || [ "$FOAM_SIGFPE_VAL" = "false" ] && export FOAM_SIGFPE="$FOAM_SIGFPE_VAL"
 
 echo "============================================="
-echo " OpenFOAM AMR Pipeline — Normal Mesh Run"
+echo " OpenFOAM AMR Pipeline — AMR Mesh Run"
 echo " Mesh:   ${MESH_FILE}"
 echo " Solver: ${SOLVER}"
 echo "============================================="

@@ -62,7 +62,8 @@ AMR-Pipeline-SoftwareX/
 ├── final.py                           ← field extractor (pvpython)
 ├── csv_to_pos.py                      ← legacy DSMC extractor
 ├── build_pvd_from_steps.sh            ← .pvd helper
-├── run_openfoam.sh                    ← unified OpenFOAM wrapper
+├── run_openfoam.sh                    ← OpenFOAM wrapper, baseline mesh
+├── run_openfoam_amr.sh                ← OpenFOAM wrapper, AMR mesh
 ├── Mesh_adaptation_for_2d_cases/      ← standalone DSMC tutorials
 ├── Mesh_adaptation_for_3d_cases/
 └── test_cases/
@@ -80,16 +81,20 @@ ls
 Expected listing:
 
 ```
-2d_cylinder.msh        all_run.sh                amr_pipeline.input
-2d_cylinder_amr.msh    build_pvd_from_steps.sh   comet_result/
-README.md              final.py                  gmsh/
-                       openfoam_case/            run_openfoam.sh
+2d_cylinder.msh        amr_pipeline.input    comet_result/
+2d_cylinder_amr.msh    README.md             gmsh/
+                                             openfoam_case/
 ```
 
-The `comet_result/` folder already contains the archived results from
-a previous verified run. The next sections describe how to run the
-case yourself; if you only want to inspect the bundled output, jump to
-section 8.
+The case folder is intentionally minimal: it contains only the
+case-specific inputs (geometry, meshes, OpenFOAM `0.orig/system/constant`)
+and the archived results from a previous verified run. The pipeline
+scripts (`all_run.sh`, `run_openfoam.sh`, `run_openfoam_amr.sh`,
+`final.py`, `build_pvd_from_steps.sh`) live once at the top of the
+repository and are invoked through the relative paths set in this
+case's `amr_pipeline.input`.
+
+If you only want to inspect the bundled output, jump to section 8.
 
 ---
 
@@ -114,8 +119,8 @@ case are:
 | `geo_file_amr` | `2d_cylinder_amr.geo` | Geometry for the AMR mesh |
 | `sim_mesh` | `2d_cylinder.msh` | Output filename of the baseline mesh |
 | `sim_mesh_amr` | `2d_cylinder_amr.msh` | Output filename of each AMR mesh |
-| `case_script` | `run_openfoam.sh` | Wrapper for the baseline run |
-| `case_script_amr` | `run_openfoam.sh` | Wrapper for each AMR run (same script) |
+| `case_script` | `../../run_openfoam.sh` | Wrapper for the baseline run (lives at the repo root) |
+| `case_script_amr` | `../../run_openfoam_amr.sh` | Wrapper for each AMR run (lives at the repo root) |
 | `extraction_mode` | `gradient` | Use `|grad(field)|` to drive AMR |
 | `gradient_field` | `p` | Field whose gradient drives refinement (pressure) |
 | `sizing_min` | `0.002` | Smallest cell size in metres |
@@ -167,11 +172,18 @@ this case.
 
 ## 5. Launch the Pipeline
 
-From inside `test_cases/openfoam_2d_mach3_cylinder/`:
+From inside `test_cases/openfoam_2d_mach3_cylinder/`, invoke the
+orchestrator at the repository root:
 
 ```bash
-./all_run.sh
+../../all_run.sh
 ```
+
+`all_run.sh` auto-detects the current working directory as the case
+base, so all output is written into the test case folder. The OpenFOAM
+wrapper scripts at the repository root are invoked automatically
+through the `case_script` and `case_script_amr` keys in
+`amr_pipeline.input`.
 
 The orchestrator first prints a configuration summary so you can
 confirm everything is wired up correctly. Look for lines like:

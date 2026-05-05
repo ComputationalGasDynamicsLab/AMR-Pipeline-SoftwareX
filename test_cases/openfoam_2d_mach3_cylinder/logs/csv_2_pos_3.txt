@@ -1,4 +1,0 @@
-[INFO] Max p gradient magnitude: 235408.70499453286
-[INFO] Exported point data with p_sizing to CSV: /home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/all_data.csv
-[INFO] Wrote filtered CSV with coords and p_sizing: /home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/filtered_mfp.csv
-[INFO] Wrote 14888 points to POS file: /home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/mfp.pos
