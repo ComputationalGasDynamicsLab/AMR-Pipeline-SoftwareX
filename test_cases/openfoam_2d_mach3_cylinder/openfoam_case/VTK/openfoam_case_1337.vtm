@@ -1,0 +1,17 @@
+<?xml version='1.0'?>
+<!-- time='0.000199954' -->
+<VTKFile type='vtkMultiBlockDataSet' version='1.0' byte_order='LittleEndian' header_type='UInt64'>
+  <vtkMultiBlockDataSet>
+    <DataSet name='internal' file='openfoam_case_1337/internal.vtu' />
+    <Block name='boundary'>
+      <DataSet name='outlet' file='openfoam_case_1337/boundary/outlet.vtp' />
+      <DataSet name='inlet' file='openfoam_case_1337/boundary/inlet.vtp' />
+      <DataSet name='wall' file='openfoam_case_1337/boundary/wall.vtp' />
+    </Block>
+  </vtkMultiBlockDataSet>
+  <FieldData>
+    <DataArray type='Float32' Name='TimeValue' NumberOfTuples='1' format='ascii'>
+0.000199954
+    </DataArray>
+  </FieldData>
+</VTKFile>

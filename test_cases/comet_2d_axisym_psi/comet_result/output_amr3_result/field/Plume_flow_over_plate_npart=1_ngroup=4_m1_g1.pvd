@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<VTKFile type="Collection" version="0.1" byte_order="LittleEndian" compressor="vtkZLibDataCompressor">
+<Collection>
+  <DataSet timestep="0" file="step_0_m1_g1/field_g0_m0.vtu"/>
+  <DataSet timestep="25000" file="step_25000_m1_g1/field_g0_m0.vtu"/>
+  <DataSet timestep="50000" file="step_50000_m1_g1/field_g0_m0.vtu"/>
+  <DataSet timestep="75000" file="step_75000_m1_g1/field_g0_m0.vtu"/>
+  <DataSet timestep="100000" file="step_100000_m1_g1/field_g0_m0.vtu"/>
+</Collection>
+</VTKFile>

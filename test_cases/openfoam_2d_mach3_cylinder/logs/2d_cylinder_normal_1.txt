@@ -1,0 +1,45 @@
+Info    : Running '/home/fahim.shahriyar/gmsh/gmsh-4.11.1-Linux64/bin/gmsh /home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder.geo -3 -o /home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder_tmp.msh' [Gmsh 4.11.1, 1 node, max. 1 thread]
+Info    : Started on Tue Mar 31 12:03:17 2026
+Info    : Reading '/home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder.geo'...
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Line)
+Info    : [ 10%] Meshing curve 2 (Line)
+Info    : [ 20%] Meshing curve 3 (Line)
+Info    : [ 20%] Meshing curve 4 (Line)
+Info    : [ 30%] Meshing curve 5 (Ellipse)
+Info    : [ 40%] Meshing curve 6 (Extruded)
+Info    : [ 40%] Meshing curve 7 (Extruded)
+Info    : [ 50%] Meshing curve 8 (Extruded)
+Info    : [ 60%] Meshing curve 9 (Extruded)
+Info    : [ 60%] Meshing curve 10 (Extruded)
+Info    : [ 70%] Meshing curve 11 (Extruded)
+Info    : [ 80%] Meshing curve 12 (Extruded)
+Info    : [ 80%] Meshing curve 13 (Extruded)
+Info    : [ 90%] Meshing curve 14 (Extruded)
+Info    : [100%] Meshing curve 15 (Extruded)
+Info    : Done meshing 1D (Wall 0.000537258s, CPU 0.003556s)
+Info    : Meshing 2D...
+Info    : [  0%] Meshing surface 3 (Plane, Frontal-Delaunay)
+Info    : [ 20%] Meshing surface 4 (Extruded)
+Info    : [ 30%] Meshing surface 5 (Extruded)
+Info    : [ 50%] Meshing surface 6 (Extruded)
+Info    : [ 60%] Meshing surface 7 (Extruded)
+Info    : [ 80%] Meshing surface 8 (Extruded)
+Info    : [ 90%] Meshing surface 9 (Extruded)
+Info    : Done meshing 2D (Wall 0.0473995s, CPU 0.511269s)
+Info    : Meshing 3D...
+Info    : Meshing volume 1 (Extruded)
+Info    : Done meshing 3D (Wall 0.00836927s, CPU 0.099823s)
+Info    : Optimizing mesh...
+Info    : Done optimizing mesh (Wall 7.62045e-05s, CPU 0s)
+Info    : 4804 nodes 14427 elements
+Info    : Done reading '/home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder.geo'
+Info    : Meshing 3D...
+Info    : Meshing volume 1 (Extruded)
+Info    : Done meshing 3D (Wall 0.00833272s, CPU 0.095789s)
+Info    : Optimizing mesh...
+Info    : Done optimizing mesh (Wall 7.61505e-05s, CPU 0.000846s)
+Info    : 4804 nodes 14427 elements
+Info    : Writing '/home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder_tmp.msh'...
+Info    : Done writing '/home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder_tmp.msh'
+Info    : Stopped on Tue Mar 31 12:03:17 2026 (From start: Wall 0.0848483s, CPU 0.946847s)

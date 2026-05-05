@@ -1,0 +1,76 @@
+&sml_param
+  sml_vfx               = 323
+  sml_vfy               = 0
+  sml_vfz               = 0.0
+  sml_rho_inf           = 7.12e-3
+  sml_T_inf             = 252.2
+  sml_Trot_inf          = 252.2
+  sml_Tvib_inf          = 252.2
+  sml_T_wall            = 300
+  sml_variable_time     = .true.
+  sml_axi_symmetric     = .true.
+  sml_dt                = 0.2
+  sml_min_dt_ratio      = 0.01
+  sml_max_dt_ratio      = 100.0
+  sml_maxStep           = 100000
+  sml_init_ptcls        = .false.
+  sml_adapt_mesh        = .false.
+  sml_target_cell_ratio = 5.0
+/
+
+&species_param
+  species_num_species = 1
+  species_id1         = 2
+  species_fraction1   = 1.0
+/
+
+&bc_param
+  bc_num_bcs = 5
+
+  ! 0 INLET, 1 DIFFUSIVE_WALL, 2 REFLECTIVE_WALL, 3 SYMMETRIC_PLANE,
+  ! 4 OUTLET, 5 PERIODIC, 6 PRESSURE_INLET
+  bc_type1 = 3    ! symmetry plane
+  bc_type2 = 1    ! diffusive wall
+  bc_type3 = 6    ! pressure inlet #1
+  bc_type4 = 6    ! pressure inlet #2
+  bc_type5 = 0    ! freestream inlet
+
+  ! Keep edge/face mapping explicit (set these to your mesh class IDs)
+  bc_set_class_id = .true.
+  bc_class_id1    = 1
+  bc_class_id2    = 2
+  bc_class_id3    = 3
+  bc_class_id4    = 4
+  bc_class_id5    = 5
+
+  ! Per-boundary pressure-inlet values (preferred; avoids global ambiguity)
+  bc_inlet_pressure3    = 0.045
+  bc_inlet_temperature3 = 300.0
+  bc_inlet_vfx3         = 0.0
+  bc_inlet_vfy3         = 0.0
+  bc_inlet_vfz3         = 0.0
+
+  bc_inlet_pressure4    = 0.045   ! change if boundary 4 should differ
+  bc_inlet_temperature4 = 300.0
+  bc_inlet_vfx4         = 0.0
+  bc_inlet_vfy4         = 0.0
+  bc_inlet_vfz4         = 0.0
+
+  ! Disable global fallback so only per-boundary values are used
+  bc_back_pressure = -1.0
+  bc_back_T        = 300.0
+
+  bc_num_wall_bcs = 1
+/
+
+&ptl_param
+  ptl_nppc = 60000000
+/
+
+&diag_param
+  diag_3d_period       = 25000
+  diag_vdf_output      = .false.
+  diag_vdf_tstep_start = 50
+  diag_num_vdf         = 0
+/
+

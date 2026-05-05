@@ -1,0 +1,52 @@
+Info    : Running '/home/fahim.shahriyar/gmsh/gmsh-4.11.1-Linux64/bin/gmsh /home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder_amr.geo -3 -o /home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder_amr_tmp.msh' [Gmsh 4.11.1, 1 node, max. 1 thread]
+Info    : Started on Tue Mar 31 12:03:20 2026
+Info    : Reading '/home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder_amr.geo'...
+Info    : Reading '/home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/mfp.pos'...
+Info    : Done reading '/home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/mfp.pos'
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Line)
+Info    : [ 20%] Meshing curve 2 (Line)
+Info    : [ 40%] Meshing curve 3 (Line)
+Info    : [ 60%] Meshing curve 4 (Line)
+Info    : [ 80%] Meshing curve 5 (Ellipse)
+Info    : Done meshing 1D (Wall 0.015184s, CPU 0.16644s)
+Info    : Meshing 2D...
+Info    : Meshing surface 3 (Plane, Frontal-Delaunay)
+Info    : Done meshing 2D (Wall 0.658991s, CPU 1.27929s)
+Info    : 35952 nodes 71909 elements
+Info    : Done reading '/home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder_amr.geo'
+Info    : Meshing 1D...
+Info    : [  0%] Meshing curve 1 (Line)
+Info    : [ 10%] Meshing curve 2 (Line)
+Info    : [ 20%] Meshing curve 3 (Line)
+Info    : [ 20%] Meshing curve 4 (Line)
+Info    : [ 30%] Meshing curve 5 (Ellipse)
+Info    : [ 40%] Meshing curve 6 (Extruded)
+Info    : [ 40%] Meshing curve 7 (Extruded)
+Info    : [ 50%] Meshing curve 8 (Extruded)
+Info    : [ 60%] Meshing curve 9 (Extruded)
+Info    : [ 60%] Meshing curve 10 (Extruded)
+Info    : [ 70%] Meshing curve 11 (Extruded)
+Info    : [ 80%] Meshing curve 12 (Extruded)
+Info    : [ 80%] Meshing curve 13 (Extruded)
+Info    : [ 90%] Meshing curve 14 (Extruded)
+Info    : [100%] Meshing curve 15 (Extruded)
+Info    : Done meshing 1D (Wall 0.00672616s, CPU 0.006354s)
+Info    : Meshing 2D...
+Info    : [  0%] Meshing surface 3 (Plane, Frontal-Delaunay)
+Info    : [ 20%] Meshing surface 4 (Extruded)
+Info    : [ 30%] Meshing surface 5 (Extruded)
+Info    : [ 50%] Meshing surface 6 (Extruded)
+Info    : [ 60%] Meshing surface 7 (Extruded)
+Info    : [ 80%] Meshing surface 8 (Extruded)
+Info    : [ 90%] Meshing surface 9 (Extruded)
+Info    : Done meshing 2D (Wall 0.665993s, CPU 0.662579s)
+Info    : Meshing 3D...
+Info    : Meshing volume 1 (Extruded)
+Info    : Done meshing 3D (Wall 0.16113s, CPU 0.16089s)
+Info    : Optimizing mesh...
+Info    : Done optimizing mesh (Wall 0.00132543s, CPU 0.001302s)
+Info    : 71904 nodes 215727 elements
+Info    : Writing '/home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder_amr_tmp.msh'...
+Info    : Done writing '/home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/gmsh/2d_cylinder_amr_tmp.msh'
+Info    : Stopped on Tue Mar 31 12:03:21 2026 (From start: Wall 1.66962s, CPU 2.53646s)
