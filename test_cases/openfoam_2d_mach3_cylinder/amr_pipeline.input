@@ -15,8 +15,12 @@
   sim_mesh_amr       = 2d_cylinder_amr.msh
 
   ! --- Solver run scripts ---
+  ! A single OpenFOAM wrapper script handles both the baseline and the
+  ! AMR mesh runs.  The orchestrator (all_run.sh) sets the environment
+  ! variable AMR_MESH_MODE=baseline or AMR_MESH_MODE=amr to tell the
+  ! wrapper which mesh to use.
   case_script        = run_openfoam.sh
-  case_script_amr    = run_openfoam_amr.sh
+  case_script_amr    = run_openfoam.sh
   final_py           = final.py
 
   ! --- Extraction settings ---

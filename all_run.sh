@@ -689,7 +689,7 @@ for i in $(seq 1 "$LOOPS"); do
     echo "Clearing previous results matching '$RESULT_SPEC'..."
     clear_live_results "$RESULT_SPEC"
     echo "Running MPI case for the starting AMR mesh..."
-    (cd "$BASE_DIR" && "$CASE_SCRIPT_AMR_PATH") 2>&1 | tee "${LOG_DIR}/output_amr${i}.txt"
+    (cd "$BASE_DIR" && AMR_MESH_MODE=amr "$CASE_SCRIPT_AMR_PATH") 2>&1 | tee "${LOG_DIR}/output_amr${i}.txt"
 
     mapfile -t live_results < <(expand_result_sources "$RESULT_SPEC")
     if [[ ${#live_results[@]} -gt 0 ]]; then
@@ -738,7 +738,7 @@ for i in $(seq 1 "$LOOPS"); do
     echo "Clearing previous results matching '$RESULT_SPEC'..."
     clear_live_results "$RESULT_SPEC"
     echo "Running MPI case for the normal mesh..."
-    (cd "$BASE_DIR" && "$CASE_SCRIPT_PATH") 2>&1 | tee "${LOG_DIR}/output_normal${i}.txt"
+    (cd "$BASE_DIR" && AMR_MESH_MODE=baseline "$CASE_SCRIPT_PATH") 2>&1 | tee "${LOG_DIR}/output_normal${i}.txt"
 
     # Build PVD in the live results before archiving (so archives include it)
     mapfile -t live_results < <(expand_result_sources "$RESULT_SPEC")
@@ -775,7 +775,7 @@ for i in $(seq 1 "$LOOPS"); do
 
   # -------- AMR run to ensure final mesh has results --------
   echo "Running MPI case for the AMR mesh..."
-  (cd "$BASE_DIR" && "$CASE_SCRIPT_AMR_PATH") 2>&1 | tee "${LOG_DIR}/output_amr${i}.txt"
+  (cd "$BASE_DIR" && AMR_MESH_MODE=amr "$CASE_SCRIPT_AMR_PATH") 2>&1 | tee "${LOG_DIR}/output_amr${i}.txt"
 
   # Build PVD in the live results before archiving AMR results
   mapfile -t live_results < <(expand_result_sources "$RESULT_SPEC")
