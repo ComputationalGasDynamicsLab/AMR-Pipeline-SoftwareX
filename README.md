@@ -303,8 +303,4 @@ separately by the Computational Gas Dynamics Lab.
 - The reproducible 2D DSMC case: [`test_cases/comet_2d_axisym_psi/`](test_cases/comet_2d_axisym_psi/)
 - The standalone manual DSMC tutorials: [`Mesh_adaptation_for_2d_cases/`](Mesh_adaptation_for_2d_cases/) and [`Mesh_adaptation_for_3d_cases/`](Mesh_adaptation_for_3d_cases/)
 
-The companion repository
-[`Mesh_adaptation_with_GMSH`](https://github.com/ComputationalGasDynamicsLab/Mesh_adaptation_with_GMSH)
-contains the same pipeline source code under active development. This
-repository is a frozen, reproducible package built around the version
-of the pipeline used in the SoftwareX submission.
+
