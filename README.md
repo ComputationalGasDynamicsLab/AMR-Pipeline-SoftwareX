@@ -34,8 +34,7 @@ the solver on the refined mesh.
 ├── final.py                           ← field extraction (pvpython)
 ├── csv_to_pos.py                      ← legacy DSMC-only extractor
 ├── build_pvd_from_steps.sh            ← helper for building .pvd time series
-├── run_openfoam.sh                    ← OpenFOAM wrapper, baseline mesh
-├── run_openfoam_amr.sh                ← OpenFOAM wrapper, AMR mesh
+├── run_openfoam.sh                    ← OpenFOAM wrapper (handles both baseline and AMR runs)
 │
 ├── Mesh_adaptation_for_2d_cases/      ← standalone manual 2D DSMC example
 ├── Mesh_adaptation_for_3d_cases/      ← standalone manual 3D DSMC example
@@ -56,7 +55,7 @@ archived results from a verified previous run.
 | `amr_pipeline.input` | Namelist-style input file. Holds every parameter the pipeline needs: paths to binaries, mesh and geometry filenames, solver wrapper scripts, extraction mode, sizing parameters, and output locations. |
 | `final.py` | Universal field-extraction script executed under `pvpython`. Two modes are supported: `direct` reads an existing scalar column from the solver output, and `gradient` computes the magnitude of `grad(field)` and converts it to a sizing field. |
 | `csv_to_pos.py` | Original DSMC-only extractor retained for backward compatibility. New runs should use `final.py`. |
-| `run_openfoam.sh` and `run_openfoam_amr.sh` | OpenFOAM wrapper scripts that convert the Gmsh mesh into OpenFOAM polyMesh format, fix boundary patch types, run the chosen solver, and export results to VTK. The two scripts differ only in which mesh file they read. |
+| `run_openfoam.sh` | OpenFOAM wrapper. Converts the Gmsh mesh into OpenFOAM polyMesh format, fixes boundary patch types, runs the chosen solver, and exports results to VTK. A single script handles both the baseline (uniform-mesh) run and every AMR-mesh run; the orchestrator selects which mesh to use through the `AMR_MESH_MODE` environment variable, and a `--baseline` command-line flag is available for manual invocation. |
 | `build_pvd_from_steps.sh` | Builds a ParaView `.pvd` collection file from per-step VTU directories. Called automatically when `pvd_create = true`. |
 | `Mesh_adaptation_for_2d_cases/` and `Mesh_adaptation_for_3d_cases/` | Standalone DSMC examples that show the manual (non-automated) workflow step by step. Useful for understanding the underlying procedure. |
 | `test_cases/openfoam_2d_mach3_cylinder/` | Self-contained 2D CFD test case with bundled results. Mach 3 cylinder at 50 km altitude, `rhoCentralFoam`, three AMR loops driven by `|grad(p)|`. |
