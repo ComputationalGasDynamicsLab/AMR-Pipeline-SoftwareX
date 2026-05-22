@@ -1,0 +1,82 @@
+# OpenFOAM 2D Cylinder — Mesh Adaptation Demo
+
+This demo generates the AMR-refined mesh for a Mach 3 flow over a 2D
+cylinder using the **pressure gradient** as the refinement criterion.
+The OpenFOAM solver is **not** invoked; the demo uses a bundled solver
+result from a previous run.
+
+The bundled result is the converged solution of `rhoCentralFoam` on a
+2D cylinder at 50 km altitude (free-stream `U_inf = 990 m/s`,
+`T_inf = 270.65 K`, `p_inf = 79.78 Pa`, isothermal wall at 800 K).
+
+## What You Need on Your Machine
+
+- Gmsh (4.11 or newer)
+- ParaView (5.13 or newer, MPI build) — for `pvpython`
+
+Nothing else. OpenFOAM is not required for this demo.
+
+## Files in This Folder
+
+| File | What it is |
+|------|------------|
+| `amr_pipeline.input` | **The one file you edit.** Contains the absolute paths to `gmsh` and `pvpython`, the names of the geometry, mesh, and intermediate files, the gradient field (`p`), and the three sizing parameters (`sizing_min`, `sizing_max`, `sizing_scale`). |
+| `generate_amr_mesh.sh` | The demo script. Reads every value from `amr_pipeline.input`, runs `final.py` in gradient mode, then runs Gmsh on `2d_cylinder_amr.geo` and writes the AMR mesh. Does not need to be edited. |
+| `2d_cylinder.geo` | Baseline geometry — rectangular domain with a cylinder, extruded one cell in z so OpenFOAM treats it as 2D. |
+| `2d_cylinder_amr.geo` | Same geometry plus the lines that load `mfp.pos` as a Gmsh `Background Field`. |
+| `2d_cylinder.msh` | Uniform mesh used as the starting point. |
+| `precomputed_result/field/auto_field.pvd` | ParaView collection that the demo's `final.py` invocation reads. |
+| `precomputed_result/field/step_5_m1_g1/field_g0_m0.vtu` | The actual field data from the bundled OpenFOAM run (converged solution). |
+
+## How to Run
+
+From this folder:
+
+```bash
+# Edit amr_pipeline.input — set gmsh_bin and pvpython to your absolute paths
+# Optionally tune the sizing parameters (sizing_min, sizing_max, sizing_scale)
+./generate_amr_mesh.sh
+```
+
+After the script finishes you will have:
+
+| New file | What it is |
+|----------|------------|
+| `mfp.pos` | Gmsh PostView with `SP(x, y, z){h}` records, where `h` is the per-point cell size produced by the sizing formula. |
+| `filtered_mfp.csv` | `(x, y, z, p_sizing)` rows for inspection. |
+| `all_data.csv` | Full point-data export from the bundled VTU. |
+| `2d_cylinder_amr.msh` | The AMR-refined mesh — the end product of the demo. |
+
+Open the two meshes side by side in Gmsh to see the refinement:
+
+```bash
+gmsh 2d_cylinder.msh        # uniform starting mesh
+gmsh 2d_cylinder_amr.msh    # AMR mesh from this demo
+```
+
+The AMR mesh has small cells along the bow shock and in the wake
+behind the cylinder, where `|grad(p)|` is large, and remains coarse in
+the smooth free-stream and far-wake regions where the gradient is
+small.
+
+## Sizing Formula Used
+
+The OpenFOAM demo uses the gradient-based sizing formula
+
+```
+h(x) = h_min + (h_max − h_min) / (1 + α · |grad p(x)| / max |grad p|)
+```
+
+with the values `h_min = 0.002 m`, `h_max = 0.015 m`, `α = 100`. These
+three values are set in `amr_pipeline.input` as `sizing_min`,
+`sizing_max`, and `sizing_scale` and can be tuned to make the
+refinement sharper (`α` larger) or softer (`α` smaller).
+
+## To Run the Full Pipeline
+
+This demo only generates one AMR mesh from a pre-computed result. To
+run the **full** pipeline (uniform mesh → run OpenFOAM → extract
+gradient sizing field → AMR mesh → run OpenFOAM again, repeated for
+several iterations), use the master script `all_run.sh` at the top of
+the repository. The full pipeline requires OpenFOAM v2406 to be
+installed.

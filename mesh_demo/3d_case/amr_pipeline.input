@@ -1,0 +1,33 @@
+&amr_input
+  ! ============================================================
+  ! Mesh-only demo — 3D COMET cylinder
+  !
+  ! generate_amr_mesh.sh reads every value below.  Edit this file
+  ! to point at your local binaries and to tune the extraction
+  ! settings; the script itself does not need to be edited.
+  ! ============================================================
+
+  ! --- Binary paths ---
+  gmsh_bin           = /home/fahim.shahriyar/gmsh/gmsh-4.11.1-Linux64/bin/gmsh
+  pvpython           = /home/fahim.shahriyar/dsmc/Paraview/ParaView-5.13.2-MPI-Linux-Python3.10-x86_64/bin/pvpython
+
+  ! --- Geometry and mesh filenames ---
+  geo_file_amr       = 3d_cylinder_amr.geo
+  sim_mesh_amr       = 3d_cylinder_amr.msh
+
+  ! --- Bundled solver result that drives the AMR step ---
+  pvd_file           = precomputed_result/field/auto_field.pvd
+
+  ! --- Field extraction ---
+  ! 'direct' mode reads the named scalar column from the VTU output
+  ! (this is the standard DSMC workflow — COMET writes 'mean free path'
+  !  natively, so no gradient calculation is needed).
+  extraction_mode    = direct
+  mfp_column         = mean free path
+  pos_scale          = 1.0
+
+  ! --- Intermediate files written by final.py ---
+  raw_csv            = all_data.csv
+  filtered_csv       = filtered_mfp.csv
+  pos_file           = mfp.pos
+/

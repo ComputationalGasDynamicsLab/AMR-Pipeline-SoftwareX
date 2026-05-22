@@ -1,0 +1,38 @@
+# Example namelist input for all_run.sh
+# Fill in the file/mesh/run names you need; leave blank to use script defaults.
+# Notes:
+# - partition_mesh=true lets the script build .dmg/.smb/.ptn for each mesh; set partition_parts and pumi_bin (or partition_script paths).
+# - refine_from points to an existing results folder or archive (tar/zip); when set, the pipeline seeds from that instead of rerunning the first “normal” loop.
+# - start_amr_mesh lets you skip normal mesh generation and begin from an existing AMR mesh file; the script will run the AMR case on that mesh, then continue AMR loops from there.
+# - pvd_file/pvd_create control whether a .pvd is built from the field outputs before archiving.
+
+&amr_input
+  base_dir           =
+  loops              = 3
+  gmsh_bin           = 
+  pumi_bin           =
+  geo_file           = 2d_axisym.geo
+  geo_file_amr       = 2d_axisym_amr.geo
+  sim_mesh           = 2d_axisym.msh
+  sim_mesh_amr       = 2d_axisym_amr.msh
+  case_script        = run_centos_gmsh_nparts=1_groupsize=1.sh
+  case_script_amr    = run_centos_gmsh_nparts=1_groupsize=1_amr.sh
+  final_py           = final.py
+  pvpython           = pvpython
+
+  result_root        =
+  start_amr_mesh     = 
+  partition_mesh     = false
+  #Example partition settings:
+  partition_parts    = 4
+  #partition_script   = /home/alseny/Software/fahim-tests/coarse_mesh_uniform_test/gmsh/print_pumipic_partition
+  #partition_script_amr = /home/alseny/Software/fahim-tests/coarse_mesh_uniform_test/gmsh/print_pumipic_partition_amr.sh
+  pv_output_dir      = field
+  pvd_file           = field/Plume_flow_over_plate_npart=1_ngroup=4_m1_g1.pvd 
+  pvd_create         = true
+  raw_csv            = gmsh/all_data.csv
+  filtered_csv       = gmsh/filtered_mfp.csv
+  pos_file           = gmsh/mfp.pos
+  mfp_column         = mean free path
+  pos_scale          = 1.0
+/

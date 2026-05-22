@@ -1,0 +1,39 @@
+&amr_input
+  ! ============================================================
+  ! Mesh-only demo — OpenFOAM 2D Mach 3 cylinder
+  !
+  ! generate_amr_mesh.sh reads every value below.  Edit this file
+  ! to point at your local binaries and to tune the extraction
+  ! settings; the script itself does not need to be edited.
+  ! ============================================================
+
+  ! --- Binary paths ---
+  gmsh_bin           = /home/fahim.shahriyar/gmsh/gmsh-4.11.1-Linux64/bin/gmsh
+  pvpython           = /home/fahim.shahriyar/dsmc/Paraview/ParaView-5.13.2-MPI-Linux-Python3.10-x86_64/bin/pvpython
+
+  ! --- Geometry and mesh filenames ---
+  geo_file_amr       = 2d_cylinder_amr.geo
+  sim_mesh_amr       = 2d_cylinder_amr.msh
+
+  ! --- Bundled solver result that drives the AMR step ---
+  pvd_file           = precomputed_result/field/auto_field.pvd
+
+  ! --- Field extraction (gradient mode for CFD) ---
+  ! 'gradient' mode computes |grad(gradient_field)| from the VTU output
+  ! and applies the sizing formula
+  !     h = sizing_min + (sizing_max - sizing_min)
+  !         / (1 + sizing_scale * |grad f| / max |grad f|)
+  ! to produce a per-point cell-size field at mfp.pos.
+  extraction_mode    = gradient
+  gradient_field     = p
+  sizing_min         = 0.002
+  sizing_max         = 0.015
+  sizing_scale       = 100.0
+  mfp_column         = p_sizing
+  pos_scale          = 1.0
+
+  ! --- Intermediate files written by final.py ---
+  raw_csv            = all_data.csv
+  filtered_csv       = filtered_mfp.csv
+  pos_file           = mfp.pos
+/

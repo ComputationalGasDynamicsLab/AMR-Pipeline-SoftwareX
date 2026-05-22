@@ -1,0 +1,78 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2406                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _630d60de3b-20240620 OPENFOAM=2406 version=v2406
+Arch   : "LSB;label=32;scalar=64"
+Exec   : foamToVTK
+Date   : Mar 31 2026
+Time   : 12:10:34
+Host   : undcemhh109-02l.cem.und.edu
+PID    : 432828
+I/O    : uncollated
+Case   : /home/fahim.shahriyar/dsmc/openfoam_mach3_cylinder/openfoam_case
+nProcs : 1
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+Initial memory 204348 kB
+Create mesh for time = 0
+
+VTK mesh topology: 0.03 s, 211380 kB
+Time: 0
+    volScalar    : T p
+    volVector    : U
+    Internal  : "VTK/openfoam_case_0/internal.vtu"
+    Boundary  : "VTK/openfoam_case_0/boundary/outlet.vtp"
+    Boundary  : "VTK/openfoam_case_0/boundary/inlet.vtp"
+    Boundary  : "VTK/openfoam_case_0/boundary/wall.vtp"
+Wrote in 0.02 s, 221380 kB
+Time: 0.0001999544447
+    volScalar    : T p rho
+    volVector    : U
+    Internal  : "VTK/openfoam_case_1337/internal.vtu"
+    Boundary  : "VTK/openfoam_case_1337/boundary/outlet.vtp"
+    Boundary  : "VTK/openfoam_case_1337/boundary/inlet.vtp"
+    Boundary  : "VTK/openfoam_case_1337/boundary/wall.vtp"
+Wrote in 0.02 s, 222332 kB
+Time: 0.0003999810138
+    volScalar    : T p rho
+    volVector    : U
+    Internal  : "VTK/openfoam_case_2665/internal.vtu"
+    Boundary  : "VTK/openfoam_case_2665/boundary/outlet.vtp"
+    Boundary  : "VTK/openfoam_case_2665/boundary/inlet.vtp"
+    Boundary  : "VTK/openfoam_case_2665/boundary/wall.vtp"
+Wrote in 0.02 s, 223156 kB
+Time: 0.0006000075829
+    volScalar    : T p rho
+    volVector    : U
+    Internal  : "VTK/openfoam_case_3993/internal.vtu"
+    Boundary  : "VTK/openfoam_case_3993/boundary/outlet.vtp"
+    Boundary  : "VTK/openfoam_case_3993/boundary/inlet.vtp"
+    Boundary  : "VTK/openfoam_case_3993/boundary/wall.vtp"
+Wrote in 0.02 s, 223156 kB
+Time: 0.0008000341512
+    volScalar    : T p rho
+    volVector    : U
+    Internal  : "VTK/openfoam_case_5321/internal.vtu"
+    Boundary  : "VTK/openfoam_case_5321/boundary/outlet.vtp"
+    Boundary  : "VTK/openfoam_case_5321/boundary/inlet.vtp"
+    Boundary  : "VTK/openfoam_case_5321/boundary/wall.vtp"
+Wrote in 0.02 s, 223156 kB
+Time: 0.001000059722
+    volScalar    : T p rho
+    volVector    : U
+    Internal  : "VTK/openfoam_case_6649/internal.vtu"
+    Boundary  : "VTK/openfoam_case_6649/boundary/outlet.vtp"
+    Boundary  : "VTK/openfoam_case_6649/boundary/inlet.vtp"
+    Boundary  : "VTK/openfoam_case_6649/boundary/wall.vtp"
+Wrote in 0.02 s, 223156 kB
+
+End: 0.15 s, 223156 kB (peak)
+

@@ -1,0 +1,43 @@
+&sml_param
+! free stream flow velocity, density, and temperature
+sml_vfx=2793.80
+sml_vfy=0.0
+sml_vfz=0.0
+sml_rho_inf=3.0e-5
+sml_T_inf=100.0
+sml_T_wall=300
+sml_dt=0.1           ! time step size in unit of free stream mean collsion time
+sml_maxStep=20000
+sml_adapt_mesh=.false.
+! below input variable only takes effect if "sml_adapt_mesh=.true."
+sml_target_cell_ratio=20.0
+/
+
+&species_param
+species_num_species=1
+! species type: 1, Argon; 2, N2; 3, N
+species_id1=2
+! species fraction input is mole fraction for now
+species_fraction1=1.0
+/
+
+&bc_param             ! specification of boundary conditions
+bc_num_bcs=7
+! boundary types: INLET, DIFFUSIVE_WALL, REFLECTIVE_WALL, SYMMETRIC_PLANE,
+!                 OUTLET, PERIODIC
+bc_type1=4
+bc_type2=4
+bc_type3=4
+bc_type4=0
+bc_type5=1
+bc_type6=4
+bc_type7=4
+bc_num_wall_bcs=1
+/
+&ptl_param
+ptl_nppc=20             ! number of particle per simulation cell
+/
+
+&diag_param ! diagnosis
+diag_3d_period=5000
+/
