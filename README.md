@@ -41,13 +41,9 @@ the solver on the refined mesh.
 │   ├── run_openfoam.sh                ← OpenFOAM wrapper, baseline mesh
 │   └── run_openfoam_amr.sh            ← OpenFOAM wrapper, AMR mesh
 │
-├── mesh_demo/                         ← mesh-only demos (NO solver needed)
-│   ├── 2d_case/                       ← COMET 2D cylinder demo
-│   ├── 3d_case/                       ← COMET 3D cylinder demo
-│   └── openfoam_case/                 ← OpenFOAM 2D Mach 3 cylinder demo
-│
-├── Mesh_adaptation_for_2d_cases/      ← standalone manual 2D DSMC tutorial
-├── Mesh_adaptation_for_3d_cases/      ← standalone manual 3D DSMC tutorial
+├── Mesh_adaptation_for_2d_cases/      ← mesh-only demo, 2D COMET cylinder
+├── Mesh_adaptation_for_3d_cases/      ← mesh-only demo, 3D COMET cylinder
+├── Mesh_adaptation_for_openfoam_cases/← mesh-only demo, OpenFOAM 2D Mach 3 cylinder
 │
 └── test_cases/                        ← full reproducible cases (solver required)
     ├── openfoam_2d_mach3_cylinder/    ← reproducible 2D CFD case (Mach 3 cylinder)
@@ -62,8 +58,7 @@ archived results from a verified previous run.
 | Path | What it is |
 |------|------------|
 | `master_script/` | **Full-pipeline scripts.** Contains the orchestrator `all_run.sh`, the field extractor `final.py`, the OpenFOAM wrappers, and the configuration template `amr_pipeline.input`. Running the full pipeline (solver in the loop, multiple AMR iterations) requires either the **COMET DSMC solver** (for DSMC cases) or **OpenFOAM v2406** (for the OpenFOAM case). See [`master_script/README.md`](master_script/README.md). |
-| `mesh_demo/` | **Mesh-only demos.** Three small subfolders (2D COMET cylinder, 3D COMET cylinder, OpenFOAM 2D Mach 3 cylinder) each bundle a uniform mesh and a pre-computed solver result, and ship a one-script driver that runs the field-extraction step and produces the AMR-refined mesh. **No solver is needed** — only Gmsh and ParaView's `pvpython`. See [`mesh_demo/README.md`](mesh_demo/README.md). |
-| `Mesh_adaptation_for_2d_cases/` and `Mesh_adaptation_for_3d_cases/` | Standalone DSMC examples that show the manual (non-automated) workflow step by step. Useful for understanding the underlying procedure. |
+| `Mesh_adaptation_for_2d_cases/`, `Mesh_adaptation_for_3d_cases/`, `Mesh_adaptation_for_openfoam_cases/` | **Mesh-only demos.** Each folder is a self-contained case (2D COMET cylinder, 3D COMET cylinder, OpenFOAM 2D Mach 3 cylinder respectively). Each ships a uniform mesh, the baseline and AMR `.geo` files, a per-case `amr_pipeline.input`, a bundled pre-computed solver result, and a one-script driver `generate_amr_mesh.sh` that runs the field-extraction step and produces the AMR-refined mesh. **No solver is needed** — only Gmsh and ParaView's `pvpython`. The user only edits the input file. |
 | `test_cases/openfoam_2d_mach3_cylinder/` | Self-contained 2D CFD test case with bundled results. Mach 3 cylinder at 50 km altitude, `rhoCentralFoam`, three AMR loops driven by `|grad(p)|`. Driven by `master_script/all_run.sh`. |
 | `test_cases/comet_2d_axisym_psi/` | Self-contained 2D DSMC test case with bundled results. Axisymmetric plume–surface impingement, three AMR loops driven by mean free path. Driven by `master_script/all_run.sh`. |
 
@@ -76,21 +71,20 @@ installed and what you want to see.
 
 ### Option A — Run a mesh-only demo (no solver required)
 
-The fastest entry point. Three demos under `mesh_demo/` ship a uniform
-mesh and a pre-computed solver result, and produce the AMR-refined
-mesh in seconds without invoking COMET or OpenFOAM. Only Gmsh and
-ParaView's `pvpython` are needed.
+The fastest entry point. The three `Mesh_adaptation_for_*_cases/`
+folders each ship a uniform mesh and a pre-computed solver result, and
+produce the AMR-refined mesh in seconds without invoking COMET or
+OpenFOAM. Only Gmsh and ParaView's `pvpython` are needed.
 
 ```bash
-cd mesh_demo/2d_case          # or 3d_case, or openfoam_case
+cd Mesh_adaptation_for_2d_cases     # or _3d_cases, or _openfoam_cases
 # Edit gmsh_bin and pvpython paths in amr_pipeline.input
 ./generate_amr_mesh.sh
 ```
 
 After the script finishes, `<case>_amr.msh` in the same folder is the
 AMR-refined mesh. Open it in Gmsh side by side with the bundled
-uniform mesh to see the refinement. Full details are in
-[`mesh_demo/README.md`](mesh_demo/README.md).
+uniform mesh to see the refinement.
 
 ### Option B — Reproduce a full pipeline run (solver required)
 
@@ -329,10 +323,10 @@ separately by the Computational Gas Dynamics Lab.
 
 ## 7. Where to Go Next
 
-- The mesh-only demos (no solver needed): [`mesh_demo/`](mesh_demo/)
-  with subfolders [`2d_case/`](mesh_demo/2d_case/),
-  [`3d_case/`](mesh_demo/3d_case/), and
-  [`openfoam_case/`](mesh_demo/openfoam_case/).
+- The mesh-only demos (no solver needed):
+  [`Mesh_adaptation_for_2d_cases/`](Mesh_adaptation_for_2d_cases/),
+  [`Mesh_adaptation_for_3d_cases/`](Mesh_adaptation_for_3d_cases/), and
+  [`Mesh_adaptation_for_openfoam_cases/`](Mesh_adaptation_for_openfoam_cases/).
 - The reproducible 2D CFD case: [`test_cases/openfoam_2d_mach3_cylinder/`](test_cases/openfoam_2d_mach3_cylinder/)
 - The reproducible 2D DSMC case: [`test_cases/comet_2d_axisym_psi/`](test_cases/comet_2d_axisym_psi/)
 - The standalone manual DSMC tutorials: [`Mesh_adaptation_for_2d_cases/`](Mesh_adaptation_for_2d_cases/) and [`Mesh_adaptation_for_3d_cases/`](Mesh_adaptation_for_3d_cases/)

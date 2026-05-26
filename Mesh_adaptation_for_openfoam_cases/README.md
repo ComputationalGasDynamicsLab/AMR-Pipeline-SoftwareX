@@ -1,4 +1,4 @@
-# OpenFOAM 2D Cylinder — Mesh Adaptation Demo
+# Mesh Adaptation for OpenFOAM Cases — Mach 3 Cylinder
 
 This demo generates the AMR-refined mesh for a Mach 3 flow over a 2D
 cylinder using the **pressure gradient** as the refinement criterion.

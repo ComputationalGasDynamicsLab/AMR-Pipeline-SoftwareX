@@ -1,6 +1,6 @@
 #!/bin/bash
 # ----------------------------------------------------------------------
-# generate_amr_mesh.sh — 2D COMET cylinder demo
+# generate_amr_mesh.sh — 3D COMET cylinder demo
 #
 # Runs the mesh-adaptation step of the AMR pipeline only.  No solver is
 # invoked.  Every parameter is read from amr_pipeline.input in this
@@ -19,7 +19,7 @@
 set -eo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 INPUT_FILE="${SCRIPT_DIR}/amr_pipeline.input"
 FINAL_PY="${REPO_ROOT}/master_script/final.py"
 
@@ -47,8 +47,8 @@ parse_conf() {
 # --- Read every configurable value ------------------------------------
 GMSH_BIN=$(parse_conf      gmsh_bin        "$INPUT_FILE" "")
 PVPYTHON=$(parse_conf      pvpython        "$INPUT_FILE" "pvpython")
-GEO_FILE_AMR=$(parse_conf  geo_file_amr    "$INPUT_FILE" "2d_cylinder_amr.geo")
-SIM_MESH_AMR=$(parse_conf  sim_mesh_amr    "$INPUT_FILE" "2d_cylinder_amr.msh")
+GEO_FILE_AMR=$(parse_conf  geo_file_amr    "$INPUT_FILE" "3d_cylinder_amr.geo")
+SIM_MESH_AMR=$(parse_conf  sim_mesh_amr    "$INPUT_FILE" "3d_cylinder_amr.msh")
 PVD_REL=$(parse_conf       pvd_file        "$INPUT_FILE" \
                            "precomputed_result/field/auto_field.pvd")
 EXTRACTION_MODE=$(parse_conf extraction_mode "$INPUT_FILE" "direct")
@@ -89,7 +89,7 @@ fi
 cd "$SCRIPT_DIR"
 
 echo "============================================="
-echo " Mesh-only demo — 2D COMET cylinder"
+echo " Mesh-only demo — 3D COMET cylinder"
 echo " Input file     : $INPUT_FILE"
 echo " Bundled result : $PVD_FILE"
 echo " Output mesh    : $SCRIPT_DIR/$SIM_MESH_AMR"
@@ -114,7 +114,7 @@ fi
     "${EXTRA_ARGS[@]}"
 
 echo "[STEP 2] Generating AMR mesh with Gmsh..."
-"$GMSH_BIN" "$GEO_FILE_AMR" -2 -o "$SIM_MESH_AMR"
+"$GMSH_BIN" "$GEO_FILE_AMR" -3 -o "$SIM_MESH_AMR"
 
 echo "============================================="
 echo " Done."
