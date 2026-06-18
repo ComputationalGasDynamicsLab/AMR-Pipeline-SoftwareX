@@ -1,21 +1,38 @@
 &amr_input
   ! ============================================================
-  ! Mesh-only demo — OpenFOAM 2D Mach 3 cylinder
+  ! OpenFOAM Mach 3 cylinder at 50 km altitude
   !
-  ! generate_amr_mesh.sh reads every value below.  Edit this file
-  ! to point at your local binaries and to tune the extraction
-  ! settings; the script itself does not need to be edited.
+  ! This single input file serves two workflows:
+  !
+  !   1. Mesh-only demo (no solver) — generate_amr_mesh.sh reads the
+  !      bundled OpenFOAM result and produces the AMR mesh with Gmsh.
+  !      Needs only Gmsh and ParaView.
+  !
+  !   2. Full pipeline (solver in the loop) — ../master_script/all_run.sh
+  !      runs rhoCentralFoam through run_openfoam.sh / run_openfoam_amr.sh
+  !      for the configured number of AMR loops.  Needs OpenFOAM v2406.
+  !
+  ! Edit the binary paths and foam_source for your machine; the scripts
+  ! themselves do not need to be edited.
   ! ============================================================
 
-  ! --- Binary paths ---
+  ! --- Pipeline settings ---
+  loops              = 3
   gmsh_bin           = /home/fahim.shahriyar/gmsh/gmsh-4.11.1-Linux64/bin/gmsh
   pvpython           = /home/fahim.shahriyar/dsmc/Paraview/ParaView-5.13.2-MPI-Linux-Python3.10-x86_64/bin/pvpython
 
   ! --- Geometry and mesh filenames ---
-  geo_file_amr       = 2d_cylinder_amr.geo
-  sim_mesh_amr       = 2d_cylinder_amr.msh
+  geo_file           = mach3_cylinder.geo
+  geo_file_amr       = mach3_cylinder_amr.geo
+  sim_mesh           = mach3_cylinder.msh
+  sim_mesh_amr       = mach3_cylinder_amr.msh
 
-  ! --- Bundled solver result that drives the AMR step ---
+  ! --- Solver run scripts (kept in master_script/, shared by every case) ---
+  case_script        = ../master_script/run_openfoam.sh
+  case_script_amr    = ../master_script/run_openfoam_amr.sh
+  final_py           = ../master_script/final.py
+
+  ! --- Bundled solver result that drives the mesh-only demo ---
   pvd_file           = precomputed_result/field/auto_field.pvd
 
   ! --- Field extraction (gradient mode for CFD) ---
@@ -32,7 +49,17 @@
   mfp_column         = p_sizing
   pos_scale          = 1.0
 
-  ! --- Intermediate files written by final.py ---
+  ! --- OpenFOAM solver settings (full pipeline only) ---
+  foam_source        = /home/fahim.shahriyar/OpenFOAM/OpenFOAM-v2406/etc/bashrc
+  solver             = rhoCentralFoam
+  case_dir           = openfoam_case
+  boundary_fix       = frontAndBack:empty, wall:wall
+  foam_sigfpe        = false
+
+  ! --- Output settings ---
+  partition_mesh     = false
+  pv_output_dir      = field
+  pvd_create         = true
   raw_csv            = all_data.csv
   filtered_csv       = filtered_mfp.csv
   pos_file           = mfp.pos

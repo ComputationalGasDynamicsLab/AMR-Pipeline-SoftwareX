@@ -47,8 +47,8 @@ parse_conf() {
 # --- Read every configurable value ------------------------------------
 GMSH_BIN=$(parse_conf      gmsh_bin        "$INPUT_FILE" "")
 PVPYTHON=$(parse_conf      pvpython        "$INPUT_FILE" "pvpython")
-GEO_FILE_AMR=$(parse_conf  geo_file_amr    "$INPUT_FILE" "2d_cylinder_amr.geo")
-SIM_MESH_AMR=$(parse_conf  sim_mesh_amr    "$INPUT_FILE" "2d_cylinder_amr.msh")
+GEO_FILE_AMR=$(parse_conf  geo_file_amr    "$INPUT_FILE" "mach3_cylinder_amr.geo")
+SIM_MESH_AMR=$(parse_conf  sim_mesh_amr    "$INPUT_FILE" "mach3_cylinder_amr.msh")
 PVD_REL=$(parse_conf       pvd_file        "$INPUT_FILE" \
                            "precomputed_result/field/auto_field.pvd")
 EXTRACTION_MODE=$(parse_conf extraction_mode "$INPUT_FILE" "gradient")
