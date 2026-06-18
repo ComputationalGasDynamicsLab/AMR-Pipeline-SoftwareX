@@ -24,7 +24,16 @@
   !  natively, so no gradient calculation is needed).
   extraction_mode    = direct
   mfp_column         = mean free path
-  pos_scale          = 1.0
+  ! pos_scale multiplies every sizing value before writing mfp.pos.
+  ! In 3D, the raw mean free path of the bundled COMET result is small
+  ! enough that meshing at one cell per mean free path would produce a
+  ! multi-million-cell AMR mesh and take fifteen or more minutes to
+  ! write.  pos_scale = 8.0 produces cells of about eight mean free
+  ! paths each, which is still a meaningful AMR mesh, finishes in a
+  ! couple of minutes on a typical machine, and keeps the resulting
+  ! mesh file to a size that is convenient to share.  Lower this value
+  ! if you want a finer mesh and have the time to wait for it.
+  pos_scale          = 8.0
 
   ! --- Intermediate files written by final.py ---
   raw_csv            = all_data.csv

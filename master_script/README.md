@@ -9,8 +9,11 @@ Running the full pipeline **requires the COMET DSMC solver** (for
 DSMC cases) or **OpenFOAM v2406** (for the OpenFOAM case). Without
 those installed you cannot run anything here end-to-end. If you only
 want to see the mesh-adaptation step work, use the mesh-only demos
-under [`../mesh_demo/`](../mesh_demo/) instead — those only need
-Gmsh and ParaView and do not invoke any solver.
+under [`../Mesh_adaptation_for_2d_cases/`](../Mesh_adaptation_for_2d_cases/),
+[`../Mesh_adaptation_for_3d_cases/`](../Mesh_adaptation_for_3d_cases/),
+and [`../Mesh_adaptation_for_openfoam_cases/`](../Mesh_adaptation_for_openfoam_cases/)
+instead — those need only Gmsh (and ParaView if you want to
+regenerate the sizing field) and do not invoke any solver.
 
 ---
 
@@ -48,10 +51,10 @@ separately. For OpenFOAM runs, they point at `run_openfoam.sh` and
 
 Without COMET, the DSMC cases cannot be run from scratch; without
 OpenFOAM, the OpenFOAM case cannot be run from scratch. In either
-situation, the mesh-only demos under
-[`../mesh_demo/`](../mesh_demo/) are the alternative — they reproduce
-the AMR mesh-generation step from a pre-computed solver result that
-is bundled with the repository.
+situation, the mesh-only demos under the
+`../Mesh_adaptation_for_*_cases/` folders are the alternative — they
+reproduce the AMR mesh-generation step from a pre-computed solver
+result that is bundled with the repository.
 
 ---
 

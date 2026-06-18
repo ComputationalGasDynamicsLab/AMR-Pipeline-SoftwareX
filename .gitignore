@@ -1,0 +1,9 @@
+# Regenerable intermediates written by generate_amr_mesh.sh / final.py.
+# The bundled mfp.pos and the AMR .msh are committed; these raw CSV
+# dumps are recreated on every run, so they are not tracked.
+Mesh_adaptation_for_2d_cases/all_data.csv
+Mesh_adaptation_for_2d_cases/filtered_mfp.csv
+Mesh_adaptation_for_3d_cases/all_data.csv
+Mesh_adaptation_for_3d_cases/filtered_mfp.csv
+Mesh_adaptation_for_openfoam_cases/all_data.csv
+Mesh_adaptation_for_openfoam_cases/filtered_mfp.csv
