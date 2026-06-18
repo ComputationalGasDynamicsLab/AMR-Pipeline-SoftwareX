@@ -27,9 +27,12 @@
   sim_mesh           = mach3_cylinder.msh
   sim_mesh_amr       = mach3_cylinder_amr.msh
 
-  ! --- Solver run scripts (kept in master_script/, shared by every case) ---
-  case_script        = ../master_script/run_openfoam.sh
-  case_script_amr    = ../master_script/run_openfoam_amr.sh
+  ! --- Solver run scripts ---
+  ! run_openfoam.sh and run_openfoam_amr.sh are bundled in this folder
+  ! (a copy of the shared master_script wrappers) so the case runs
+  ! self-contained, the same way as dsmc/openfoam_mach3_cylinder.
+  case_script        = run_openfoam.sh
+  case_script_amr    = run_openfoam_amr.sh
   final_py           = ../master_script/final.py
 
   ! --- Bundled solver result that drives the mesh-only demo ---

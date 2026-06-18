@@ -1,20 +1,26 @@
 #!/bin/bash
 # ----------------------------------------------------------------------
-# generate_amr_mesh.sh — OpenFOAM 2D Mach 3 cylinder demo
+# generate_amr_mesh.sh — OpenFOAM Mach 3 cylinder mesh-adaptation
 #
-# Runs the mesh-adaptation step of the AMR pipeline only.  No solver is
-# invoked.  Every parameter is read from amr_pipeline.input in this
-# folder — the script itself does not need to be edited.
+# Produces the AMR mesh and then hands it to the OpenFOAM run wrapper,
+# because OpenFOAM cannot read a Gmsh .msh directly — it needs a
+# polyMesh.  Every parameter is read from amr_pipeline.input; the
+# script itself does not need to be edited.
 #
 # The script:
-#   1. Reads the bundled OpenFOAM solver result (path from amr_pipeline.input).
-#   2. Runs final.py under pvpython in 'gradient' mode to compute
-#      |grad(p)| and convert it to a sizing field at mfp.pos.
-#   3. Runs Gmsh on the AMR .geo, which reads mfp.pos as a background
-#      field and produces the AMR mesh.
+#   1. Runs final.py under pvpython in 'gradient' mode to compute
+#      |grad(p)| and write the sizing field mfp.pos.
+#   2. Runs Gmsh on the AMR .geo, which reads mfp.pos as a background
+#      field and produces the AMR mesh (.msh).
+#   3. Calls the run wrapper run_openfoam_amr.sh, which converts that
+#      mesh with gmshToFoam (writing openfoam_case/constant/polyMesh),
+#      fixes the boundary patch types, and runs rhoCentralFoam.  The
+#      step is skipped with a notice if OpenFOAM is not configured — the
+#      Gmsh mesh is still produced.
 #
-# Running the FULL pipeline (solver included, multiple AMR loops) needs
-# OpenFOAM v2406; see the top-level README.md for that workflow.
+# Step 3 reuses the same run_openfoam_amr.sh that the full pipeline
+# (master_script/all_run.sh) uses, rather than duplicating gmshToFoam
+# here.  See README.md.
 # ----------------------------------------------------------------------
 set -eo pipefail
 
@@ -116,8 +122,29 @@ fi
 echo "[STEP 2] Generating AMR mesh with Gmsh..."
 "$GMSH_BIN" "$GEO_FILE_AMR" -3 -o "$SIM_MESH_AMR"
 
+# --- STEP 3: hand the mesh to the OpenFOAM run wrapper ----------------
+# OpenFOAM cannot use the Gmsh .msh directly, so run_openfoam_amr.sh
+# converts it to a polyMesh with gmshToFoam (and runs the solver).  We
+# follow that wrapper here instead of duplicating the conversion.
+WRAPPER="${SCRIPT_DIR}/run_openfoam_amr.sh"
+FOAM_SOURCE=$(parse_conf foam_source "$INPUT_FILE" "")
+echo "[STEP 3] Converting to OpenFOAM polyMesh via run_openfoam_amr.sh..."
+CONVERTED=0
+if [ ! -x "$WRAPPER" ]; then
+    echo "[SKIP] run_openfoam_amr.sh not found next to this script."
+elif [ -z "$FOAM_SOURCE" ] || [ ! -f "$FOAM_SOURCE" ]; then
+    echo "[SKIP] OpenFOAM not configured: set 'foam_source' in $INPUT_FILE,"
+    echo "       then run ./run_openfoam_amr.sh to convert and solve."
+else
+    "$WRAPPER"
+    CONVERTED=1
+fi
+
 echo "============================================="
 echo " Done."
-echo " AMR mesh: $SCRIPT_DIR/$SIM_MESH_AMR"
-echo " Open it in Gmsh to compare against the bundled uniform mesh."
+echo " AMR mesh (Gmsh) : $SCRIPT_DIR/$SIM_MESH_AMR"
+if [ "$CONVERTED" = "1" ]; then
+    echo " OpenFOAM mesh   : $SCRIPT_DIR/openfoam_case/constant/polyMesh"
+fi
+echo " Open the .msh in Gmsh to compare against the uniform mesh."
 echo "============================================="
