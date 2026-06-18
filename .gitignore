@@ -7,3 +7,12 @@ Mesh_adaptation_for_3d_cases/all_data.csv
 Mesh_adaptation_for_3d_cases/filtered_mfp.csv
 Mesh_adaptation_for_openfoam_cases/all_data.csv
 Mesh_adaptation_for_openfoam_cases/filtered_mfp.csv
+
+# OpenFOAM run artifacts created by gmshToFoam / the solver.  The case
+# config (0.orig/, constant/{thermo,turbulence}Properties, system/) is
+# tracked; these are regenerated when the script or solver runs.
+Mesh_adaptation_for_openfoam_cases/openfoam_case/constant/polyMesh/
+Mesh_adaptation_for_openfoam_cases/openfoam_case/log.*
+Mesh_adaptation_for_openfoam_cases/openfoam_case/VTK/
+Mesh_adaptation_for_openfoam_cases/openfoam_case/processor*
+Mesh_adaptation_for_openfoam_cases/openfoam_case/0/
